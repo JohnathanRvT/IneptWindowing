@@ -1,0 +1,3 @@
+[submodule "IneptWindowing/libraries/IneptLogger"]
+	path = IneptWindowing/libraries/IneptLogger
+	url = https://github.com/JohnathanRvT/IneptLogger.git
