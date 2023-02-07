@@ -181,10 +181,10 @@ namespace Inept::Windowing
          * @brief Get the input manager for the window.
          * @return A pointer to the input manager for the window.
          */
-      //  Input::InputManagerBase* GetInputManager() { return m_inputManager; }
+       InputManagerBase* GetInputManager() { return m_inputManager; }
 
     protected:
-       // Input::InputManagerBase* m_inputManager;
+        InputManagerBase* m_inputManager;
         WindowBase* m_parent;
 
         virtual void Create(WindowBase* parent = nullptr, int width = 800, int height = 600, const wchar_t* title = L"Inept Window") = 0;

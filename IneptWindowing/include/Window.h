@@ -2,8 +2,6 @@
 
 #include <WindowBase.h>
 
-#define INEPT_PLATFORM_WINDOWS
-
 #ifdef INEPT_PLATFORM_WINDOWS
 #include <platform/Windows/WindowsWindowBase.h>
 #include <platform/Windows/WindowsInputManager.h>
