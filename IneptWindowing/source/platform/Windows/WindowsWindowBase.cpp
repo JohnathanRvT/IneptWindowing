@@ -10,7 +10,7 @@ namespace Inept::Windowing
 {
     WindowsWindowBase::WindowsWindowBase(WindowBase* parent, int width, int height, const wchar_t *title)
     {
-       // m_inputManager = new Input::WindowsInputManager(std::make_shared<WindowsWindowBase>(this));
+        m_inputManager = new WindowsInputManager();
        // SetParent( parent ? parent : NULL);
         Create(parent, width, height, title);
     }
