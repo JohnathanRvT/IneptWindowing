@@ -1,14 +1,14 @@
 #pragma once
 
-#include <InputManagerBase.h>
+#include "InputBase.h"
 
-namespace Inept::Windowing {
+namespace Inept::Input {
 
-	class WindowsInputManager : public InputManagerBase
+	class WindowsInput : public InputBase
 	{
 	public:
-		WindowsInputManager();
-		virtual ~WindowsInputManager() = default;
+		WindowsInput();
+		virtual ~WindowsInput() = default;
 		virtual bool IsKeyPressed(int key) override;
 		virtual bool IsMouseButtonPressed(int button) override;
 		virtual std::pair<int, int> GetMousePosition() override;

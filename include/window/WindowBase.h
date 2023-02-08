@@ -1,6 +1,12 @@
 #pragma once
 
-#include <InputManagerBase.h>
+#include <Input/InputBase.h>
+using namespace Inept::Input;
+
+#include <render/Context.h>
+using namespace Inept::Rendering;
+
+#include <string>
 
 namespace Inept::Windowing
 {
@@ -22,23 +28,29 @@ namespace Inept::Windowing
          * @param height The height of the window.
          * @param title The title of the window.
          */
-        WindowBase(WindowBase* parent = nullptr, int width = 800, int height = 600, const wchar_t* title = L"Inept Window") {}
+        WindowBase(WindowBase* parent = nullptr, int width = 800, int height = 600, const std::string title = "Inept Window") {}
 
         /*
          * @brief Virtual destructor for the WindowBase class.
          */
         virtual ~WindowBase() = default;
 
-        /*The default constructor, copy constructor,
-        copy assignment operator, move constructor,
-        and move assignment operator of WindowBase have been deleted.
-        This is done to prevent unwanted copying or moving of WindowBase objects
-        as it may not make sense or have unexpected behavior in certain cases.
-        */
+        /*
+         The default constructor, copy constructor,
+         copy assignment operator, move constructor,
+         and move assignment operator of WindowBase have been deleted.
+         This is done to prevent unwanted copying or moving of WindowBase objects
+         as it may not make sense or have unexpected behavior in certain cases.
+         */
         WindowBase(const WindowBase&) = delete;
         WindowBase& operator=(const WindowBase&) = delete;
         WindowBase(WindowBase&&) = delete;
         WindowBase& operator=(WindowBase&&) = delete;
+
+        /*
+        * @brief Updates the window.
+        */
+        virtual void Update() = 0;
 
         /*
          * @brief Close the window.
@@ -128,13 +140,13 @@ namespace Inept::Windowing
          * @brief Set the title of the window.
          * @param title The new title of the window.
          */
-        virtual void SetTitle(const wchar_t* title) = 0;
+        virtual void SetTitle(const std::string title) = 0;
 
         /*
          * @brief Get the title of the window.
          * @return The title of the window.
          */
-        virtual const wchar_t* GetTitle() = 0;
+        virtual const std::string GetTitle() = 0;
 
         /*
          * @brief Set the position of the window.
@@ -149,6 +161,16 @@ namespace Inept::Windowing
          * @param height The new height of the window.
          */
         virtual void SetSize(int width, int height) = 0;
+
+        /*
+         * @brief Gets the width of the window.
+         */
+        virtual int GetWidth() = 0;
+
+        /*
+         * @brief Gets the height of the window.
+         */
+        virtual int GetHeight() = 0;
 
         /*
          * @brief Add a child window to the current window.
@@ -173,20 +195,26 @@ namespace Inept::Windowing
         virtual WindowBase* GetParentWindow() = 0;
 
         /*
-       * @brief Sets the parent of the window
-       */
+         * @brief Sets the parent of the window
+         */
         virtual void SetParentWindow(WindowBase* parent) = 0;
 
         /*
          * @brief Get the input manager for the window.
          * @return A pointer to the input manager for the window.
          */
-       InputManagerBase* GetInputManager() { return m_inputManager; }
+          InputBase* GetInputManager() { return m_inputManager; }
+
+          /*
+         * @brief Get the context for the renderer.
+         * @return A pointer to the the context for the renderer.
+         */
+          Context* GetContext() { return m_context; }
 
     protected:
-        InputManagerBase* m_inputManager;
-        WindowBase* m_parent;
-
-        virtual void Create(WindowBase* parent = nullptr, int width = 800, int height = 600, const wchar_t* title = L"Inept Window") = 0;
+          InputBase* m_inputManager;
+          WindowBase* m_parent;
+          Context* m_context;
+        virtual void Create(WindowBase* parent = nullptr, int width = 800, int height = 600, const std::string title = "Inept Window") = 0;
     };
-} // namespace Inept::Windowing
+}// namespace Inept::Windowing

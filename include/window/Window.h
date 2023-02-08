@@ -1,10 +1,10 @@
 #pragma once
 
-#include <WindowBase.h>
+#include <window/WindowBase.h>
 
 #ifdef INEPT_PLATFORM_WINDOWS
-#include <platform/Windows/WindowsWindowBase.h>
-#include <platform/Windows/WindowsInputManager.h>
+#include <window/WindowsWindow.h>
+//#include <input/WindowsInputManager.h>
 #elif defined(INEPT_PLATFORM_MACOS)
 #include <platform/MacOS/MacOSWindowBase.h>
 #include <platform/MacOS/MacOSInputManager.h>
@@ -16,13 +16,15 @@
 #include <platform/Linux/LinuxInputManager.h>
 #endif
 
-namespace Inept::Windowing {
+namespace Inept::Windowing
+{
     // Static create function for cross platform support of WindowBase
-    static WindowBase* Window(WindowBase* parent = nullptr, int width = 800, int height = 600, const wchar_t* title = L"Inept Window")
+    static WindowBase* CreateIneptWindow(WindowBase* parent = nullptr, int width = 800, int height = 600, const std::string title = "Inept Window")
     {
 #ifdef INEPT_PLATFORM_WINDOWS
-        return new WindowsWindowBase(parent, width, height, title);
-#endif
+        return new WindowsWindow(parent, width, height, title);
+#else
         return nullptr;
+#endif
     }
 }

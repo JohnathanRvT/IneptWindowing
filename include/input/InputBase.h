@@ -4,18 +4,20 @@
 #include <vector>
 #include <functional>
 
-namespace Inept::Windowing
+namespace Inept::Input
 {
-    class InputManagerBase
+    class InputBase
     {
     public:
         /*
-        * @brief Constructor for the InputManagerBase class.
-        */
-        InputManagerBase() {}    /*
-     * @brief Virtual destructor for the InputManagerBase class.
-     */
-        virtual ~InputManagerBase() = default;
+         * @brief Constructor for the InputBase class.
+         */
+        InputBase() {};
+
+        /*
+         * @brief Virtual destructor for the InputBase class.
+         */
+        virtual ~InputBase() = default;
 
         /*
          * @brief Check if a specific key is currently pressed.
@@ -52,9 +54,8 @@ namespace Inept::Windowing
         /*
          * @brief Register a callback function to be called when a specific key is pressed.
          * @param key The key to register the callback for.
-         * @param callback The
-callback function to be called when the key is pressed. The function should take no parameters and return void.
-*/
+         * @param callback The callback function to be called when the key is pressed. The function should take no parameters and return void.
+         */
         virtual void RegisterKeyCallback(int key, std::function<void(int)> callback) = 0;
         /*
          * @brief Register a callback function to be called when a specific mouse button is pressed.
@@ -69,6 +70,9 @@ callback function to be called when the key is pressed. The function should take
          */
         virtual void RegisterMouseMoveCallback(std::function<void(int, int)> callback) = 0;
 
-        virtual void PollEvents() =0 ;
+        /*
+         * @brief Checks for any events in the buffer.
+         */
+        virtual void PollEvents() = 0;
     };
-}
+} //namespace Inept::Input

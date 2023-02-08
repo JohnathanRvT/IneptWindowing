@@ -1,25 +1,26 @@
 #pragma once
 
 #ifdef INEPT_PLATFORM_WINDOWS
+#include <window/WindowBase.h>
+
 #include <Windows.h>
-#include <WindowBase.h>
 #include <memory>
 
 namespace Inept::Windowing
 {
-   
-    class WindowsWindowBase : public WindowBase
+
+    class WindowsWindow : public WindowBase
     {
     public:
-        WindowsWindowBase(WindowBase* parent = nullptr, int width = 800, int height = 600, const wchar_t* title = L"Inept Window");
+        WindowsWindow(WindowBase* parent = nullptr, int width = 800, int height = 600, const std::string title = "Inept Window");
 
-        WindowsWindowBase(const WindowsWindowBase&) = delete;
-        WindowsWindowBase& operator=(const WindowsWindowBase&) = delete;
-        WindowsWindowBase(WindowsWindowBase&&) = delete;
-        WindowsWindowBase& operator=(WindowsWindowBase&&) = delete;
+        WindowsWindow(const WindowsWindow&) = delete;
+        WindowsWindow& operator=(const WindowsWindow&) = delete;
+        WindowsWindow(WindowsWindow&&) = delete;
+        WindowsWindow& operator=(WindowsWindow&&) = delete;
 
-        virtual ~WindowsWindowBase();
-
+        virtual ~WindowsWindow();
+        virtual void Update() override;
         virtual void Close() override;
 
         virtual void Show() override;
@@ -40,15 +41,18 @@ namespace Inept::Windowing
         virtual void SetFullscreen(bool fullscreen) override;
         virtual bool IsFocused() override;
 
-        virtual void SetTitle(const wchar_t* title)override;
-        virtual const wchar_t* GetTitle() override;
+        virtual void SetTitle(const std::string title)override;
+        virtual const std::string GetTitle() override;
 
         virtual void SetPosition(int x, int y) override;
         virtual void SetSize(int width, int height) override;
+        virtual int GetWidth() override;
+        virtual int GetHeight() override;
+
 
         virtual void AddChild(WindowBase* child) override;
         virtual void RemoveChild(WindowBase* child) override;
-        virtual void RemoveAllChildren() override;  
+        virtual void RemoveAllChildren() override;
 
         virtual WindowBase* GetParentWindow() override;
         virtual void SetParentWindow(WindowBase* parent) override;
@@ -56,9 +60,7 @@ namespace Inept::Windowing
         virtual HWND GetHandle() { return m_handle; }
     protected:
         HWND m_handle;
-
-        virtual void Create(WindowBase* parent = nullptr, int width = 800, int height = 600, const wchar_t* title = L"Inept Window") override;
+        virtual void Create(WindowBase* parent = nullptr, int width = 800, int height = 600, const std::string title = "Inept Window") override;
     };
 }
-
 #endif
